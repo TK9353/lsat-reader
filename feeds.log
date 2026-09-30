@@ -1,0 +1,49 @@
+== RSS ==
+200 items=1 fulltext_tags=0 | https://www.everycrsreport.com/rss.xml
+200 items=25 fulltext_tags=25 | https://theconversation.com/us/politics/articles.atom
+200 items=68 fulltext_tags=135 | https://libertystreeteconomics.newyorkfed.org/feed/
+200 items=25 fulltext_tags=25 | https://theconversation.com/us/business/articles.atom
+200 items=20 fulltext_tags=0 | https://www.project-syndicate.org/rss
+200 items=1 fulltext_tags=0 | https://www.smithsonianmag.com/rss/history/
+200 items=10 fulltext_tags=20 | https://daily.jstor.org/feed/
+200 items=10 fulltext_tags=20 | https://www.technologyreview.com/feed/
+200 items=20 fulltext_tags=40 | https://feeds.arstechnica.com/arstechnica/index
+200 items=25 fulltext_tags=25 | https://theconversation.com/us/technology/articles.atom
+200 items=25 fulltext_tags=25 | https://theconversation.com/us/environment/articles.atom
+200 items=25 fulltext_tags=25 | https://theconversation.com/us/health/articles.atom
+200 items=5 fulltext_tags=10 | https://www.quantamagazine.org/feed/
+200 items=25 fulltext_tags=25 | https://www.scotusblog.com/feed/
+200 items=1 fulltext_tags=1 | https://www.lawfaremedia.org/feeds/articles
+200 items=25 fulltext_tags=25 | https://theconversation.com/us/topics/law-1123/articles.atom
+200 items=20 fulltext_tags=0 | https://aeon.co/feed.rss
+200 items=20 fulltext_tags=0 | https://psyche.co/feed
+200 items=10 fulltext_tags=20 | https://www.noemamag.com/feed/
+200 items=25 fulltext_tags=25 | https://theconversation.com/us/arts/articles.atom
+200 items=20 fulltext_tags=0 | https://aeon.co/feed.rss
+== APIs ==
+200 items=0 fulltext_tags=0 | https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=federalism&format=json
+401 items=0 fulltext_tags=0 | https://content.guardianapis.com/search?api-key=test&page-size=1&show-fields=body
+522 items=0 fulltext_tags=0 | https://api.dictionaryapi.dev/api/v2/entries/en/tenuous
+200 items=0 fulltext_tags=0 | https://en.wiktionary.org/api/rest_v1/page/definition/tenuous
+== Article extraction sample (first link of each feed: word count of <p> text) ==
+words=16017 | https://www.EveryCRSReport.com/reports/R48093.html
+words=1279 | https://theconversation.com/originalism-what-it-is-what-it-isnt-and-why-its-the-most-democratic-option-for-the-supreme-court-291115
+words=2575 | https://libertystreeteconomics.newyorkfed.org/2026/09/follow-the-cash-microstructure-of-repo-markets/
+words=1661 | https://theconversation.com/cities-keep-shelling-out-taxpayer-money-for-sports-stadiums-yet-the-economics-almost-never-makes-sense-292058
+words=389 | https://www.project-syndicate.org/commentary/ai-boom-is-leading-us-to-neglect-human-cognition-by-harris-eyre-et-al-2026-09?utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=main&amp;utm_content=en
+words=1211 | https://www.smithsonianmag.com/history/who-wrote-elizabeth-is-most-scathing-letters-new-research-suggests-the-tudor-queens-male-secretaries-revised-her-correspondence-to-emphasize-her-temper-180989565/
+words=717 | https://daily.jstor.org/can-we-recover-a-worldview-lost-to-colonialism/
+words=1212 | https://www.technologyreview.com/2026/09/29/1145249/the-download-climate-tech-ai-scientific-discovery/
+words=1216 | https://arstechnica.com/health/2026/09/most-powerful-obesity-drug-yet-people-lost-up-to-25-of-weight-in-trial/
+words=1415 | https://theconversation.com/the-war-games-problem-computer-science-has-long-understood-what-it-takes-to-keep-ai-under-control-292884
+words=1573 | https://theconversation.com/oil-and-gas-industry-expected-surplus-but-war-brought-shortage-instead-292406
+words=1436 | https://theconversation.com/are-there-toxic-chemicals-in-your-grocery-store-receipt-291246
+words=2552 | https://www.quantamagazine.org/mathematicians-harness-randomness-to-crack-a-55-year-old-conjecture-20260928/
+words=1519 | https://www.scotusblog.com/2026/09/supreme-court-to-hear-argument-on-trump-administrations-deportation-of-immigrants-to-third-party/
+words=2453 | https://www.lawfaremedia.org/article/changing-china-s-cyber-calculus
+words=1047 | https://theconversation.com/mouth-ulcers-why-have-i-got-them-and-how-can-i-get-rid-of-them-289842
+words=5068 | https://aeon.co/essays/we-need-a-better-way-to-describe-what-is-often-called-cancer
+words=490 | https://psyche.co/videos/when-tech-titans-tell-us-to-adapt-or-die-we-neednt-listen
+words=473 | https://www.noemamag.com/noemas-ai-reading-list
+words=1533 | https://theconversation.com/teenage-sex-and-death-at-camp-miasma-winks-and-blows-a-blood-soaked-kiss-at-horror-films-of-queer-past-291752
+words=5068 | https://aeon.co/essays/we-need-a-better-way-to-describe-what-is-often-called-cancer
