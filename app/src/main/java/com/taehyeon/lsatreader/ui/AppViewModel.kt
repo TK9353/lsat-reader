@@ -138,7 +138,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private suspend fun nextArticle(): Article? {
-        val kinds = store.enabledKinds.filter { it != Kind.AI }.ifEmpty { listOf(Kind.WIKI) }
+        val kinds = store.enabledKinds
+            .filter { it != Kind.AI && (it != Kind.GUARDIAN || guardian.enabled) }
+            .ifEmpty { listOf(Kind.WIKI) }
         repeat(4) {
             val topic = rec.pickTopic(store.enabledTopics)
             val kind = rec.pickKind(kinds)
@@ -203,7 +205,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         val first: Article? = if (Random.nextDouble() < 0.7) {
             runCatching { wiki.randomForTopic(topic, exclude) }.getOrNull()
         } else {
-            runCatching { guardian.randomForTopic(topic, exclude) }.getOrNull()
+            (if (guardian.enabled) runCatching { guardian.randomForTopic(topic, exclude) }.getOrNull() else null)
                 ?: runCatching { rss.randomForTopic(topic, store.feeds, exclude) }.getOrNull()
         }
         first?.takeIf { it.wordCount >= 500 } ?: runCatching { wiki.randomForTopic(topic, exclude) }.getOrNull()

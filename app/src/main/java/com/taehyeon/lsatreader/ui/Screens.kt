@@ -385,7 +385,7 @@ fun SettingsScreen(vm: AppViewModel) {
         }
         OutlinedTextField(
             value = guardianKey, onValueChange = { guardianKey = it },
-            label = { Text("Guardian API 키 (선택)") }, singleLine = true,
+            label = { Text("Guardian API 키 (선택, 없으면 Guardian 기사 제외)") }, singleLine = true,
             modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
         )
         Button(

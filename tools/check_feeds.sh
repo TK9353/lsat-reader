@@ -16,6 +16,7 @@ echo "== APIs =="
 check "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=federalism&format=json"
 check "https://content.guardianapis.com/search?api-key=test&page-size=1&show-fields=body"
 check "https://api.dictionaryapi.dev/api/v2/entries/en/tenuous"
+check "https://en.wiktionary.org/api/rest_v1/page/definition/tenuous"
 echo "== Article extraction sample (first link of each feed: word count of <p> text) =="
 grep -E '^[A-Z]+ \| .* \| https?://' app/src/main/java/com/taehyeon/lsatreader/data/DefaultFeeds.kt | awk -F'|' '{gsub(/ /,"",$3); print $3}' | while read -r u; do
   curl -sL -m 20 -A "$UA" "$u" -o /tmp/feed.xml

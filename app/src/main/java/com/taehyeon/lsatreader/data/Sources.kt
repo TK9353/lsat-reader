@@ -82,7 +82,9 @@ class WikipediaSource {
 // The Guardian Content API
 // ====================================================================
 class GuardianSource(private val keyProvider: () -> String) {
-    private val key get() = keyProvider().ifBlank { "test" }
+    /** 공용 test 키는 2026-09 점검 시 401 응답 → 개인 키가 있을 때만 사용 */
+    val enabled get() = keyProvider().isNotBlank()
+    private val key get() = keyProvider()
     private val cache = HashMap<String, Pair<Long, List<Article>>>()
     private val lock = Mutex()
 
@@ -111,6 +113,7 @@ class GuardianSource(private val keyProvider: () -> String) {
     }
 
     suspend fun search(q: String?, section: String?, topic: Topic, page: Int = 1, orderBy: String = "relevance"): List<Article> {
+        if (!enabled) return emptyList()
         val sb = StringBuilder("https://content.guardianapis.com/search?type=article&page-size=20")
         sb.append("&show-fields=body,byline&order-by=").append(orderBy).append("&page=").append(page)
         if (!q.isNullOrBlank()) sb.append("&q=").append(enc(q))
@@ -287,6 +290,16 @@ object Extractor {
 object Dictionary {
     suspend fun lookup(word: String): DictResult? {
         val w = word.lowercase().trim()
+        val primary = runCatching { freeDictionary(w) }
+        primary.getOrNull()?.let { return it }
+        // 1차 사전 서버 오류/미등재 시 Wiktionary로 대체
+        val wk = runCatching { wiktionary(w) }
+        wk.getOrNull()?.let { return it }
+        primary.exceptionOrNull()?.let { if (it !is HttpException || it.code != 404) throw it }
+        return null
+    }
+
+    private suspend fun freeDictionary(w: String): DictResult? {
         val json = try {
             Http.get("https://api.dictionaryapi.dev/api/v2/entries/en/${enc(w)}", ua = Http.API_UA)
         } catch (e: HttpException) {
@@ -305,6 +318,26 @@ object Dictionary {
                 }
             }
         }
+        if (senses.isEmpty()) return null
         return DictResult(first.str("word") ?: w, phonetic, senses.take(6))
+    }
+
+    private suspend fun wiktionary(w: String): DictResult? {
+        val json = try {
+            Http.get("https://en.wiktionary.org/api/rest_v1/page/definition/${enc(w)}", ua = Http.API_UA)
+        } catch (e: HttpException) {
+            if (e.code == 404) return null else throw e
+        }
+        val en = AppJson.parseToJsonElement(json).obj()?.get("en").arr() ?: return null
+        val senses = ArrayList<Pair<String, String>>()
+        for (entry in en) {
+            val pos = entry.obj().str("partOfSpeech")?.lowercase() ?: ""
+            entry.obj()?.get("definitions").arr()?.take(2)?.forEach { d ->
+                val text = Jsoup.parse(d.obj().str("definition") ?: "").text().trim()
+                if (text.isNotEmpty()) senses.add(pos to text)
+            }
+        }
+        if (senses.isEmpty()) return null
+        return DictResult(w, null, senses.take(6))
     }
 }
